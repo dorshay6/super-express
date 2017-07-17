@@ -7,11 +7,14 @@ const morgan = require('morgan')
 const compression = require("compression")
 const helmet = require('helmet')
 
-module.exports = function() {
+const defaultOptions = require('./defaultOptions.json')
+
+module.exports = function(options) {
     const app = express()
 
     const isProd = process.env.NODE_ENV === 'production'
     const isStage = process.env.NODE_ENV === 'staging'
+    const mergedOptions = Object.assign({}, defaultOptions, options)
 
     if (isProd || isStage) {
         // Prod settings
@@ -23,13 +26,15 @@ module.exports = function() {
     }
 
     // General
-    app.use(bodyParser.urlencoded({
-        extended: true
-    }))
-    app.use(bodyParser.json())
+    if( mergedOptions.bodyParser ) {
+        app.use(bodyParser.urlencoded({
+            extended: true
+        }))
+        app.use(bodyParser.json())
+    }
 
-    app.use(compression())
-    app.use(helmet())
+    if( mergedOptions.compression ) app.use(compression(mergedOptions.compression.options))
+    if( mergedOptions.helmet ) app.use(helmet(mergedOptions.helmet.options))
 
     app.nativeListen = app.listen
     app.listen = function (port, cb) {
