@@ -1,6 +1,6 @@
 {
   "name": "super-express",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Express with built in biolerplate",
   "main": "index.js",
   "author": "Dor Shay",
