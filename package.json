@@ -1,6 +1,6 @@
 {
   "name": "super-express",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Express with built in biolerplate",
   "main": "index.js",
   "author": "Dor Shay",
@@ -8,11 +8,11 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "chalk": "^2.0.1",
-    "change-case": "^3.0.1",
     "compression": "^1.7.0",
     "express": "^4.15.3",
     "express-status-monitor": "^0.1.9",
     "helmet": "^3.6.1",
+    "json-inflector": "^1.1.0",
     "morgan": "^1.8.2",
     "pino": "^4.7.0"
   }
