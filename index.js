@@ -7,6 +7,7 @@ const morgan = require('morgan')
 const compression = require("compression")
 const helmet = require('helmet')
 
+const snakeJson = require('./middleware/snakeJson.js')
 const defaultOptions = require('./defaultOptions.json')
 
 module.exports = function(options) {
@@ -36,12 +37,14 @@ module.exports = function(options) {
     if( mergedOptions.compression ) app.use(compression(mergedOptions.compression.options))
     if( mergedOptions.helmet ) app.use(helmet(mergedOptions.helmet.options))
 
+    app.use(snakeJson);
+
     app.nativeListen = app.listen
     app.listen = function (port, cb) {
-
         console.log(chalk.blue(`Super express will listen on port ${port}`))
         console.log(chalk.blue(`Production mode: ${isProd}`))
         app.nativeListen(port, cb)
     }
+
     return app
 };
