@@ -10,7 +10,7 @@ const inflector = require('json-inflector');
 
 const defaultOptions = require('./defaultOptions.json')
 
-module.exports = function(options) {
+module.exports = function(options = {}) {
     const app = express()
 
     const isProd = process.env.NODE_ENV === 'production'
@@ -37,7 +37,7 @@ module.exports = function(options) {
     if( mergedOptions.compression ) app.use(compression(mergedOptions.compression.options))
     if( mergedOptions.helmet ) app.use(helmet(mergedOptions.helmet.options))
 
-    if (options.convertCasing) app.use(inflector(options.convertCasing));
+    if (mergedOptions.convertCasing) app.use(inflector(mergedOptions.convertCasing === true ? undefined : mergedOptions.convertCasing));
 
     app.nativeListen = app.listen
     app.listen = function (port, cb) {
