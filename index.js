@@ -11,7 +11,7 @@ const inflector = require('json-inflector');
 const defaultOptions = require('./defaultOptions.json')
 
 module.exports = function(options = {}) {
-    const app = express()
+    const app = express(options)
 
     const isProd = process.env.NODE_ENV === 'production'
     const isStage = process.env.NODE_ENV === 'staging'
